@@ -1,6 +1,4 @@
-from src.errors.InvalidQuestionCreation import InvalidQuestionCreation
 class Question:
-
     '''
     Question class used as a question holder contains :
     1 - question_text (str) : textual representation of the question .
@@ -8,7 +6,7 @@ class Question:
     3 - correct_option (str) : the correct answer (option) for the question .
     '''
 
-    def __init__(self , question_text , options_list , correct_option ):
+    def __init__(self, question_text, options_list, correct_option):
         '''
         creates a question object .
         ARGS:
@@ -19,19 +17,13 @@ class Question:
             Question object .
         '''
 
-        exit_code = Question.is_valid_creation_call(question_text , options_list , correct_option)
-
-        if exit_code != 0 :
-
-            InvalidQuestionCreation.exit_code = exit_code
-            raise InvalidQuestionCreation("An error occurred in the creation of question object:")
+        Question.validate_creation(question_text, options_list, correct_option)
 
         self.__question_text = question_text
         self.__options_list = options_list
         self.__correct_option = correct_option
 
-
-    def get_question_text (self):
+    def get_question_text(self):
         """
         gets the question textual representation as a string .
         ARGS:
@@ -41,12 +33,11 @@ class Question:
         """
         return self.__question_text
 
-    def get_options_list (self):
+    def get_options_list(self):
 
         return self.__options_list
 
-
-    def get_correct_option (self):
+    def get_correct_option(self):
         """
         gets the question textual representation as a string .
         ARGS:
@@ -55,7 +46,6 @@ class Question:
             ( str ) : returns the question text for the question object as a string
         """
         return self.__correct_option
-
 
     def is_correct_answer_in_options(correct_option, options_list):
         '''
@@ -68,7 +58,6 @@ class Question:
         '''
         return correct_option in options_list
 
-
     def is_question_text_empty(question_text):
         '''
         check is the question text is empty or null , returns True if yes , False if no .
@@ -79,7 +68,6 @@ class Question:
         '''
         return question_text == "" or question_text == None
 
-
     def is_valid_number_of_options(options_list):
         '''
         check if the number of options in the list of options is valid .
@@ -89,7 +77,6 @@ class Question:
              ( bool ): Ture is valid False otherwise  .
         '''
         return len(options_list) == 4
-
 
     def is_valid_question_attr_type(question_text, options_list, correct_option):
         '''
@@ -103,8 +90,7 @@ class Question:
         '''
         return type(question_text) == str and type(options_list) == list and type(correct_option) == str
 
-
-    def is_valid_creation_call(quesiton_text, options_list, correct_option):
+    def validate_creation(quesiton_text, options_list, correct_option):
         """
         check if all the constraints are met  for the creation of a Question object .
         ARGS:
@@ -115,16 +101,13 @@ class Question:
             ( int ): returns 0 if all constraints are met and non zero exit code otherwise .
         """
         if Question.is_valid_number_of_options(options_list) == False:
-            return -1
+            raise Exception("Number of options should be exactly four options")
 
         elif Question.is_correct_answer_in_options(correct_option, options_list) == False:
-            return -2
+            raise Exception("The input answer should be one of the input options ")
 
         elif Question.is_question_text_empty(quesiton_text) == True:
-            return -3
+            raise Exception("The question statement should be non empty")
 
         elif Question.is_valid_question_attr_type(quesiton_text, options_list, correct_option) == False:
-            return -4
-
-        else:
-            return 0
+            raise Exception("check that you enetered a correct type for each input")
