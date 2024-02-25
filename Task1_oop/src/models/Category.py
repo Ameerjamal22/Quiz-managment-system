@@ -1,8 +1,6 @@
+class Category:
 
-from src.errors.InvalidCategoryCreation import InvalidCategoryCreation
-class Category :
-
-    def __init__( self , category_name , list_of_questions = [] ):
+    def __init__(self, category_name, list_of_questions=[]):
         """
         creates a new object from the Category class that has a name and a list of questions in it .
         ARGS:
@@ -10,17 +8,12 @@ class Category :
             list_of_questions (list) : the list of the questions that deecend under this category .
         """
 
-        exit_code = Category.is_valid_category_name( category_name )
-
-        if exit_code != 0 :
-
-            InvalidCategoryCreation.exit_code = exit_code
-            raise InvalidCategoryCreation("An error occurred during the category creation :")
+        Category.validate_creation(category_name)
 
         self.__category_name = category_name
         self.__list_of_questions = list_of_questions
 
-    def get_category_name( self ) :
+    def get_category_name(self):
         """
         Gets the category name as a string .
         ARGS:
@@ -30,7 +23,7 @@ class Category :
         """
         return self.__category_name
 
-    def get_list_of_questions( self ):
+    def get_list_of_questions(self):
         """
         gets the question textual representation as a string .
         ARGS:
@@ -40,7 +33,8 @@ class Category :
         """
         return self.__list_of_questions
 
-    def is_valid_category_name(category_name):
+    @staticmethod
+    def validate_creation(category_name):
         """
         check if the category name is valid ( non-empty ) .
         ARGS:
@@ -48,7 +42,5 @@ class Category :
         RETURNS:
             ( int ) : returns zero if the category name is valid , and a negative exist code if its not .
         """
-        if category_name:
-            return 0
-        else:
-            return -1
+        if not category_name:
+            raise ("the category name should be non-empty")
