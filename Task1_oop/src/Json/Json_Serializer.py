@@ -34,7 +34,6 @@ def read_json_categories_data(json_data):
         current_category_questions = []
 
         for question in list_of_questions:
-
             question_text = str(question["question"])
             options_list = list(question["options"])
             correct_option = str(question["answer"])
