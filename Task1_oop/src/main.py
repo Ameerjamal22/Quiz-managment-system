@@ -183,14 +183,14 @@ def add_question_to_category(list_of_categories):
         choice = input("Enter your choice :")
         choice = int(choice)
 
-        if (choice >= 0 and choice <= len(list_of_categories)):
+        if (choice >= 1 and choice <= len(list_of_categories)):
             break
         else:
             print("Enter one of the valid choices")
 
-    list_of_categories = create_new_question_by_user(list_of_categories, choice)
+    list_of_categories = create_new_question_by_user(list_of_categories, choice - 1 )
     return list_of_categories
 
 
 if __name__ == "__main__":
-    quiz_menu("db\\data.json", "ameer")
+    quiz_menu("data.json", "ameer")
