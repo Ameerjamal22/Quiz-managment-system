@@ -1,10 +1,10 @@
 from typing import List
+from src.Json.object_to_json_dict import Object_Jsonify
 
 
 
 
-
-class Question:
+class Question(Object_Jsonify):
     '''
     Question class used as a question holder contains :
     1 - question_text (str) : textual representation of the question .
@@ -125,3 +125,16 @@ class Question:
 
         if not self.is_valid_question_attr_type(quesiton_text, options_list, correct_option):
             raise Exception("check that you enetered a correct type for each input")
+
+    def jsonify_object(self) -> dict:
+        """
+        Converts the Question object into a JSON-compatible dictionary.
+        Returns:
+            dict: A dictionary representing the Question object.
+        """
+
+        return {
+            "question": self.__question_text,
+            "options": self.__options_list,
+            "answer": self.__correct_option
+        }

@@ -2,9 +2,10 @@ from src.models.Question import Question
 from src.models.Category import Category
 from typing import List
 from typing import Type
+import json
 
 
-def get_category_names_from_json(json_data:dict) -> List[str]:
+def get_category_names_from_json(json_data: dict) -> List[str]:
     '''
     gets the category names from the json dict
     ARGS:
@@ -21,8 +22,7 @@ def get_category_names_from_json(json_data:dict) -> List[str]:
     return category_names
 
 
-
-def read_json_categories_data(json_data:dict) -> List[Type[Category]] :
+def read_json_categories_data(json_data: dict) -> List[Type[Category]]:
     '''
     Convert the json dictionary that contains data into a list of category objects .
     ARGS:
@@ -48,3 +48,21 @@ def read_json_categories_data(json_data:dict) -> List[Type[Category]] :
 
     return categories
 
+
+def convert_categories_to_json_string(list_of_categories: List[Type[Category]]) -> str:
+    """
+    converts a list of categories objects passed as a parameter into a json string
+    Args:
+        list_of_categories : list of categories objects to be converted .
+
+    Returns:
+        a json string representing the categories .
+    """
+    json_dict = {}
+
+    for category in list_of_categories:
+        category_name, list_of_questions = category.jsonify_object()
+        json_dict[category_name] = list_of_questions
+
+    json_string = json.dumps(json_dict, indent=2)
+    return json_string

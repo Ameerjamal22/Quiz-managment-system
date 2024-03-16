@@ -1,9 +1,10 @@
 from typing import List
 from typing import Type
+from src.Json.object_to_json_dict import Object_Jsonify
 
 
 
-class Category:
+class Category(Object_Jsonify):
 
     def __init__(self, category_name: str, list_of_questions: List = []):
         """
@@ -48,3 +49,12 @@ class Category:
         """
         if not category_name:
             raise Exception("the category name should be non-empty")
+
+    def jsonify_object(self) -> dict:
+        """
+        Converts the Category object into a JSON-compatible dictionary.
+        Returns:
+            dict: A dictionary representing the Category object.
+        """
+
+        return self.__category_name , [ question.jsonify_object() for question in self.__list_of_questions ]

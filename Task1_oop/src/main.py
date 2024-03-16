@@ -5,6 +5,7 @@ from src.models.Category import Category
 
 from typing import Type
 from typing import List
+import os
 
 
 def display_options(username: str) -> None:
@@ -17,8 +18,9 @@ def display_options(username: str) -> None:
     Enter a number to determine your choice :
     1 - Test yourself with a quiz 
     2 - create a new quiz category
-    3 - create a new question in one of the categories    
-    4 - exit
+    3 - create a new question in one of the categories 
+    4 - write the quiz data to the data file    
+    5 - exit
     """)
 
 
@@ -128,13 +130,20 @@ def options_handler(choice: str, username: str, list_of_categories: List[Type[Ca
         add_question_to_category(list_of_categories)
 
     elif choice == '4':
+
+        with open("data.json", 'w') as data_file:
+            data_file.write(convert_categories_to_json_string(list_of_categories))
+        print("Quiz data was written successfully")
+
+    elif choice == '5':
         return True
+
     else:
         print("invalid option")
         return False
 
 
-def quiz_menu(file_name:str, user_name:str) -> None :
+def quiz_menu(file_name: str, user_name: str) -> None:
     """
     the main driver function of the quiz program controls the flow of the program
     ARGS:
@@ -162,7 +171,7 @@ def quiz_menu(file_name:str, user_name:str) -> None :
     print(f" {user_name} Thank you for using the program , best regards")
 
 
-def create_new_question_by_user(list_of_categories: List[Type[Category]] , choice : int) -> List[Type[Category]]:
+def create_new_question_by_user(list_of_categories: List[Type[Category]], choice: int) -> List[Type[Category]]:
     """
     creates a new question and add it to the category specified by the user .
     Args:
