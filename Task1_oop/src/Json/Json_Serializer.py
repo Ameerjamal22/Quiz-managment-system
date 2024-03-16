@@ -47,3 +47,4 @@ def read_json_categories_data(json_data:dict) -> List[Type[Category]] :
         categories.append(Category(category_name, current_category_questions))
 
     return categories
+
