@@ -2,10 +2,8 @@ from src.db.Read_Write_Json import *
 from src.Json.Json_Serializer import *
 from src.models.Question import Question
 from src.models.Category import Category
-
 from typing import Type
 from typing import List
-import os
 
 
 def display_options(username: str) -> None:
