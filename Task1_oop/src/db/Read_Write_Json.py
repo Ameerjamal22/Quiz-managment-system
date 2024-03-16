@@ -1,6 +1,7 @@
 import json
 
-def read_json_data ( file_name ):
+
+def read_json_data(file_name: str) -> dict :
     """
     reads the data from a json file given the file name
     ARGS:
@@ -10,6 +11,5 @@ def read_json_data ( file_name ):
     """
 
     with open(file_name, "r") as data_file:
-
         data = json.loads(data_file.read())
         return data
