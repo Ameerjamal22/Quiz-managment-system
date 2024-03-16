@@ -227,4 +227,7 @@ def add_question_to_category(list_of_categories: List[Type[Category]]) -> List[T
 
 
 if __name__ == "__main__":
-    quiz_menu("data.json", "ameer")
+    try :
+        quiz_menu("data.json", "ameer")
+    except Exception:
+        print(Exception.args)
