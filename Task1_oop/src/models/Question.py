@@ -1,3 +1,9 @@
+from typing import List
+from typing import Type
+
+
+
+
 class Question:
     '''
     Question class used as a question holder contains :
@@ -6,7 +12,7 @@ class Question:
     3 - correct_option (str) : the correct answer (option) for the question .
     '''
 
-    def __init__(self, question_text, options_list, correct_option):
+    def __init__(self, question_text: str, options_list: List[str], correct_option: str) :
         '''
         creates a question object .
         ARGS:
@@ -23,7 +29,7 @@ class Question:
         self.__options_list = options_list
         self.__correct_option = correct_option
 
-    def get_question_text(self):
+    def get_question_text(self) -> str:
         """
         gets the question textual representation as a string .
         ARGS:
@@ -33,11 +39,18 @@ class Question:
         """
         return self.__question_text
 
-    def get_options_list(self):
+    def get_options_list(self) -> List[str]:
+        """
+        Gets the options list of the question
+        ARGS:
+            self : the question object
+        RETURNS:
+            ( List of string ) where each element stands for an option of the) :
+        """
 
         return self.__options_list
 
-    def get_correct_option(self):
+    def get_correct_option(self) -> str:
         """
         gets the question textual representation as a string .
         ARGS:
@@ -45,9 +58,10 @@ class Question:
         RETURNS:
             ( str ) : returns the question text for the question object as a string
         """
+
         return self.__correct_option
 
-    def is_correct_answer_in_options(self, correct_option, options_list):
+    def is_correct_answer_in_options(self, correct_option:str, options_list:List[str]) -> bool:
         '''
         check is the correct answer exist in the list of options .
         ARGS:
@@ -58,7 +72,7 @@ class Question:
         '''
         return correct_option in options_list
 
-    def is_question_text_empty(self, question_text):
+    def is_question_text_empty(self, question_text:str) -> bool:
         '''
         check is the question text is empty or null , returns True if yes , False if no .
         ARGS:
@@ -68,7 +82,7 @@ class Question:
         '''
         return question_text == "" or question_text == None
 
-    def is_valid_number_of_options(self, options_list):
+    def is_valid_number_of_options(self, options_list:List[str]) -> bool :
         '''
         check if the number of options in the list of options is valid .
         ARGS:
@@ -78,7 +92,7 @@ class Question:
         '''
         return len(options_list) == 4
 
-    def is_valid_question_attr_type(self, question_text, options_list, correct_option):
+    def is_valid_question_attr_type(self, question_text:str, options_list:List[str], correct_option:str) -> bool :
         '''
         check if tha passed argument has the appropriate type .
         ARGS:
@@ -90,7 +104,7 @@ class Question:
         '''
         return type(question_text) == str and type(options_list) == list and type(correct_option) == str
 
-    def validate_creation(self, quesiton_text, options_list, correct_option):
+    def validate_creation(self, quesiton_text:str, options_list:List[str], correct_option:str) -> bool:
         """
         check if all the constraints are met  for the creation of a Question object .
         ARGS:
