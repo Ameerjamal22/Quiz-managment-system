@@ -1,6 +1,6 @@
 class Category:
 
-    def __init__(self, category_name, list_of_questions=None ):
+    def __init__(self, category_name, list_of_questions=[] ):
         """
         creates a new object from the Category class that has a name and a list of questions in it .
         ARGS:
