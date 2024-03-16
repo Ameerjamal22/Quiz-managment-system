@@ -133,14 +133,15 @@ def options_handler(choice: str, username: str, list_of_categories: List[Type[Ca
 
         with open("data.json", 'w') as data_file:
             data_file.write(convert_categories_to_json_string(list_of_categories))
-        print("Quiz data was written successfully")
+            print("Quiz data was written successfully")
 
     elif choice == '5':
         return True
 
     else:
         print("invalid option")
-        return False
+
+    return False
 
 
 def quiz_menu(file_name: str, user_name: str) -> None:
@@ -155,7 +156,7 @@ def quiz_menu(file_name: str, user_name: str) -> None:
     list_of_categories = read_tests_data(file_name)
     choice = '-1'
 
-    while choice != '4':
+    while choice != '5':
 
         display_options(user_name)
         choice = input("")
@@ -227,7 +228,7 @@ def add_question_to_category(list_of_categories: List[Type[Category]]) -> List[T
 
 
 if __name__ == "__main__":
-    try :
+    try:
         quiz_menu("data.json", "ameer")
     except Exception:
         print(Exception.args)
