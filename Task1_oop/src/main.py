@@ -35,7 +35,7 @@ def print_category_options(list_of_categories, username):
 
     choice = input("")
 
-    if int(choice) >= 1 and int(choice) <= len(list_of_categories):
+    if 1 <= int(choice) <= len(list_of_categories):
         return list_of_categories[int(choice) - 1]
     else:
         return print_category_options(list_of_categories, username)
@@ -90,6 +90,7 @@ def create_category_by_user_inputs(list_of_categories):
 
         if category.get_category_name() == category_name:
             category_name_exist = True
+            break
 
     if category_name_exist:
         print("The entered name already exists , exiting")
@@ -197,12 +198,12 @@ def add_question_to_category(list_of_categories):
 
     choice = ""
 
-    while (True):
+    while True:
 
         choice = input("Enter your choice :")
         choice = int(choice)
 
-        if (choice >= 1 and choice <= len(list_of_categories)):
+        if 0 <= choice <= len(list_of_categories):
             break
         else:
             print("Enter one of the valid choices")
