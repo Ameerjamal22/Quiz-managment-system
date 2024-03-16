@@ -157,6 +157,16 @@ def quiz_menu(file_name, user_name):
 
 
 def create_new_question_by_user(list_of_categories, choice):
+    """
+    creates a new question and add it to the category specified by the user .
+    Args:
+        list_of_categories ( list of strings ): list of categories .
+        choice ( int ) : the number of the category that the newly created question will be added to .
+
+    Returns:
+        ( list of strings) : the updated list of categories after the question is added .
+    """
+
     question_text = input("Enter your question statement")
 
     options_list = []
@@ -171,6 +181,15 @@ def create_new_question_by_user(list_of_categories, choice):
 
 
 def add_question_to_category(list_of_categories):
+    """
+    handles the ( create a new question in one of the categories ) option .
+    Args:
+        list_of_categories ( list of strings ): list of categories .
+
+    Returns:
+        ( list of strings) : the updated list of categories after the question is added .
+    """
+
     print("choose the category you want to add a questions to :")
 
     for category in list_of_categories:
@@ -188,7 +207,7 @@ def add_question_to_category(list_of_categories):
         else:
             print("Enter one of the valid choices")
 
-    list_of_categories = create_new_question_by_user(list_of_categories, choice - 1 )
+    list_of_categories = create_new_question_by_user(list_of_categories, choice - 1)
     return list_of_categories
 
 
