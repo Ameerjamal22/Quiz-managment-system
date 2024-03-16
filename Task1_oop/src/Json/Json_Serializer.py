@@ -1,8 +1,11 @@
 from src.models.Question import Question
 from src.models.Category import Category
+from typing import List
 
+list_of_strings = List[str]
+list_of_categories: List[Category]
 
-def get_category_names_from_json(json_data):
+def get_category_names_from_json(json_data:dict) -> list_of_strings :
     '''
     gets the category names from the json dict
     ARGS:
@@ -19,7 +22,8 @@ def get_category_names_from_json(json_data):
     return category_names
 
 
-def read_json_categories_data(json_data):
+
+def read_json_categories_data(json_data:dict) -> list_of_categories :
     '''
     Convert the json dictionary that contains data into a list of category objects .
     ARGS:
