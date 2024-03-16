@@ -17,7 +17,7 @@ class Question:
             Question object .
         '''
 
-        Question.validate_creation(question_text, options_list, correct_option)
+        self.validate_creation(question_text, options_list, correct_option)
 
         self.__question_text = question_text
         self.__options_list = options_list
@@ -47,7 +47,7 @@ class Question:
         """
         return self.__correct_option
 
-    def is_correct_answer_in_options(correct_option, options_list):
+    def is_correct_answer_in_options(self, correct_option, options_list):
         '''
         check is the correct answer exist in the list of options .
         ARGS:
@@ -58,7 +58,7 @@ class Question:
         '''
         return correct_option in options_list
 
-    def is_question_text_empty(question_text):
+    def is_question_text_empty(self, question_text):
         '''
         check is the question text is empty or null , returns True if yes , False if no .
         ARGS:
@@ -68,7 +68,7 @@ class Question:
         '''
         return question_text == "" or question_text == None
 
-    def is_valid_number_of_options(options_list):
+    def is_valid_number_of_options(self, options_list):
         '''
         check if the number of options in the list of options is valid .
         ARGS:
@@ -78,7 +78,7 @@ class Question:
         '''
         return len(options_list) == 4
 
-    def is_valid_question_attr_type(question_text, options_list, correct_option):
+    def is_valid_question_attr_type(self, question_text, options_list, correct_option):
         '''
         check if tha passed argument has the appropriate type .
         ARGS:
@@ -90,7 +90,7 @@ class Question:
         '''
         return type(question_text) == str and type(options_list) == list and type(correct_option) == str
 
-    def validate_creation(quesiton_text, options_list, correct_option):
+    def validate_creation(self, quesiton_text, options_list, correct_option):
         """
         check if all the constraints are met  for the creation of a Question object .
         ARGS:
@@ -100,14 +100,14 @@ class Question:
         RETURNS:
             ( int ): returns 0 if all constraints are met and non zero exit code otherwise .
         """
-        if Question.is_valid_number_of_options(options_list) == False:
+        if not self.is_valid_number_of_options(options_list):
             raise Exception("Number of options should be exactly four options")
 
-        elif Question.is_correct_answer_in_options(correct_option, options_list) == False:
+        if not self.is_correct_answer_in_options(correct_option, options_list):
             raise Exception("The input answer should be one of the input options ")
 
-        elif Question.is_question_text_empty(quesiton_text) == True:
+        if self.is_question_text_empty(quesiton_text):
             raise Exception("The question statement should be non empty")
 
-        elif Question.is_valid_question_attr_type(quesiton_text, options_list, correct_option) == False:
+        if not self.is_valid_question_attr_type(quesiton_text, options_list, correct_option):
             raise Exception("check that you enetered a correct type for each input")
