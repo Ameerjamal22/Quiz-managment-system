@@ -1,6 +1,6 @@
 class Category:
 
-    def __init__(self, category_name, list_of_questions=[]):
+    def __init__(self, category_name, list_of_questions=None ):
         """
         creates a new object from the Category class that has a name and a list of questions in it .
         ARGS:
@@ -43,4 +43,4 @@ class Category:
             ( int ) : returns zero if the category name is valid , and a negative exist code if its not .
         """
         if not category_name:
-            raise ("the category name should be non-empty")
+            raise Exception("the category name should be non-empty")
