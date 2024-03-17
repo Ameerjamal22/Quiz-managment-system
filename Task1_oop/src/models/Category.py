@@ -1,10 +1,10 @@
 from typing import List
 from typing import Type
-from src.Json.object_to_json_dict import Object_Jsonify
+from src.Json.object_to_json_dict import ObjectJsonify
 
 
 
-class Category(Object_Jsonify):
+class Category(ObjectJsonify):
 
     def __init__(self, category_name: str, list_of_questions: List = []):
         """

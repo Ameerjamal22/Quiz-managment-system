@@ -13,3 +13,6 @@ def read_json_data(file_name: str) -> dict :
     with open(file_name, "r") as data_file:
         data = json.loads(data_file.read())
         return data
+
+
+

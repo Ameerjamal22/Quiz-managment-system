@@ -1,10 +1,10 @@
 from typing import List
-from src.Json.object_to_json_dict import Object_Jsonify
+from src.Json.object_to_json_dict import ObjectJsonify
 
 
 
 
-class Question(Object_Jsonify):
+class Question(ObjectJsonify):
     '''
     Question class used as a question holder contains :
     1 - question_text (str) : textual representation of the question .

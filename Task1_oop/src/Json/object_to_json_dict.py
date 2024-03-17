@@ -1,4 +1,4 @@
-class Object_Jsonify :
+class ObjectJsonify :
 
     def jsonify_object(self):
         pass

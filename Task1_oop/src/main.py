@@ -22,7 +22,7 @@ def display_options(username: str) -> None:
     """)
 
 
-def read_tests_data(file_name: str) -> List[Type[Category]]:
+def read_tests_data(file_name: str) -> List[Category]:
     """
     reads data from json and returns a list of categories object . .
     """
@@ -32,7 +32,7 @@ def read_tests_data(file_name: str) -> List[Type[Category]]:
     return list_of_categories
 
 
-def print_category_options(list_of_categories: List[Type[Category]], username: str):
+def print_category_options(list_of_categories: List[Category], username: str):
     print(f" {username} please enter your choice for the category that you want to be tested in ")
 
     for index, category in enumerate(list_of_categories):
@@ -46,7 +46,7 @@ def print_category_options(list_of_categories: List[Type[Category]], username: s
         return print_category_options(list_of_categories, username)
 
 
-def initiate_quiz(username: str, list_of_categories: List[Type[Category]]) -> None:
+def initiate_quiz(username: str, list_of_categories: List[Category]) -> None:
     """
     initiates the quiz with the category that the user choose ,and keep giving
     question until the category question end or the user want to stop .
@@ -79,7 +79,7 @@ def initiate_quiz(username: str, list_of_categories: List[Type[Category]]) -> No
         len(category_choice.get_list_of_questions())) + " good job ." + username)
 
 
-def create_category_by_user_inputs(list_of_categories: List[Type[Category]]) -> List[Type[Category]]:
+def create_category_by_user_inputs(list_of_categories: List[Category]) -> List[Category]:
     """
     creates a new category with no questions in it .
     ARGS:
@@ -108,7 +108,7 @@ def create_category_by_user_inputs(list_of_categories: List[Type[Category]]) -> 
     return list_of_categories
 
 
-def options_handler(choice: str, username: str, list_of_categories: List[Type[Category]]):
+def options_handler(choice: str, username: str, list_of_categories: List[Category]):
     """
     handles the menu options based on the user choice
     ARGS:
@@ -170,7 +170,7 @@ def quiz_menu(file_name: str, user_name: str) -> None:
     print(f" {user_name} Thank you for using the program , best regards")
 
 
-def create_new_question_by_user(list_of_categories: List[Type[Category]], choice: int) -> List[Type[Category]]:
+def create_new_question_by_user(list_of_categories: List[Category], choice: int) -> List[Category]:
     """
     creates a new question and add it to the category specified by the user .
     Args:
@@ -194,7 +194,7 @@ def create_new_question_by_user(list_of_categories: List[Type[Category]], choice
     return list_of_categories
 
 
-def add_question_to_category(list_of_categories: List[Type[Category]]) -> List[Type[Category]]:
+def add_question_to_category(list_of_categories: List[Category]) -> List[Category]:
     """
     handles the ( create a new question in one of the categories ) option .
     Args:

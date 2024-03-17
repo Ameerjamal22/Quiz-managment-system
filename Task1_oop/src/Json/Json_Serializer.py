@@ -22,7 +22,7 @@ def get_category_names_from_json(json_data: dict) -> List[str]:
     return category_names
 
 
-def read_json_categories_data(json_data: dict) -> List[Type[Category]]:
+def read_json_categories_data(json_data: dict) -> List[Category]:
     '''
     Convert the json dictionary that contains data into a list of category objects .
     ARGS:
@@ -49,7 +49,7 @@ def read_json_categories_data(json_data: dict) -> List[Type[Category]]:
     return categories
 
 
-def convert_categories_to_json_string(list_of_categories: List[Type[Category]]) -> str:
+def convert_categories_to_json_string(list_of_categories: List[Category]) -> str:
     """
     converts a list of categories objects passed as a parameter into a json string
     Args:
