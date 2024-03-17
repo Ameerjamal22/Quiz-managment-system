@@ -128,10 +128,9 @@ def options_handler(choice: str, username: str, list_of_categories: List[Categor
         add_question_to_category(list_of_categories)
 
     elif choice == '4':
-
-        with open("data.json", 'w') as data_file:
-            data_file.write(convert_categories_to_json_string(list_of_categories))
-            print("Quiz data was written successfully")
+        json_data = convert_categories_to_json_dict(list_of_categories)
+        write_json_data("data.json", json_data)
+        print("file was written successfully")
 
     elif choice == '5':
         return True
@@ -153,6 +152,9 @@ def quiz_menu(file_name: str, user_name: str) -> None:
     """
     list_of_categories = read_tests_data(file_name)
     choice = '-1'
+
+    for category in list_of_categories:
+        print(category.to_json())
 
     while choice != '5':
 

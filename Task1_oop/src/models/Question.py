@@ -126,7 +126,7 @@ class Question(ObjectJsonify):
         if not self.is_valid_question_attr_type(quesiton_text, options_list, correct_option):
             raise Exception("check that you enetered a correct type for each input")
 
-    def jsonify_object(self) -> dict:
+    def to_json(self) -> dict:
         """
         Converts the Question object into a JSON-compatible dictionary.
         Returns:

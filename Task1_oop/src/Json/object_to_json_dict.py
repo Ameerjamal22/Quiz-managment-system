@@ -1,5 +1,5 @@
 class ObjectJsonify :
 
-    def jsonify_object(self):
+    def to_json(self):
         pass
 

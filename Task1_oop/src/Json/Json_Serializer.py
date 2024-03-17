@@ -49,20 +49,24 @@ def read_json_categories_data(json_data: dict) -> List[Category]:
     return categories
 
 
-def convert_categories_to_json_string(list_of_categories: List[Category]) -> str:
+def convert_categories_to_json_dict(list_of_categories: List[Category]) -> dict:
     """
-    converts a list of categories objects passed as a parameter into a json string
+    converts a list of categories objects passed as a parameter into a json dict
     Args:
         list_of_categories : list of categories objects to be converted .
 
     Returns:
-        a json string representing the categories .
+        a json dict representing the categories .
     """
+
     json_dict = {}
 
     for category in list_of_categories:
-        category_name, list_of_questions = category.jsonify_object()
-        json_dict[category_name] = list_of_questions
 
-    json_string = json.dumps(json_dict, indent=2)
-    return json_string
+        list_of_question = []
+        for question in category.get_list_of_questions() :
+            list_of_question.append(question.to_json())
+
+        json_dict[category.get_category_name()] = list_of_question
+
+    return json_dict
