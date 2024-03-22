@@ -1,8 +1,11 @@
 from src.models.Question import Question
 from src.models.Category import Category
+from typing import List
+from typing import Type
+import json
 
 
-def get_category_names_from_json(json_data):
+def get_category_names_from_json(json_data: dict) -> List[str]:
     '''
     gets the category names from the json dict
     ARGS:
@@ -19,7 +22,7 @@ def get_category_names_from_json(json_data):
     return category_names
 
 
-def read_json_categories_data(json_data):
+def read_json_categories_data(json_data: dict) -> List[Category]:
     '''
     Convert the json dictionary that contains data into a list of category objects .
     ARGS:
@@ -34,9 +37,9 @@ def read_json_categories_data(json_data):
         current_category_questions = []
 
         for question in list_of_questions:
-            question_text = str(question["question"])
-            options_list = list(question["options"])
-            correct_option = str(question["answer"])
+            question_text = question["question"]
+            options_list = question["options"]
+            correct_option = question["answer"]
             new_question = Question(question_text, options_list, correct_option)
 
             current_category_questions.append(new_question)
@@ -44,3 +47,26 @@ def read_json_categories_data(json_data):
         categories.append(Category(category_name, current_category_questions))
 
     return categories
+
+
+def convert_categories_to_json_dict(list_of_categories: List[Category]) -> dict:
+    """
+    converts a list of categories objects passed as a parameter into a json dict
+    Args:
+        list_of_categories : list of categories objects to be converted .
+
+    Returns:
+        a json dict representing the categories .
+    """
+
+    json_dict = {}
+
+    for category in list_of_categories:
+
+        list_of_question = []
+        for question in category.get_list_of_questions() :
+            list_of_question.append(question.to_json())
+
+        json_dict[category.get_category_name()] = list_of_question
+
+    return json_dict

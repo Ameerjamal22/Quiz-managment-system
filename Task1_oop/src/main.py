@@ -1,8 +1,12 @@
 from src.db.Read_Write_Json import *
 from src.Json.Json_Serializer import *
+from src.models.Question import Question
+from src.models.Category import Category
+from typing import Type
+from typing import List
 
 
-def display_options(username):
+def display_options(username: str) -> None:
     """
     displays the program menu .
     """
@@ -12,12 +16,13 @@ def display_options(username):
     Enter a number to determine your choice :
     1 - Test yourself with a quiz 
     2 - create a new quiz category
-    3 - create a new question in one of the categories    
-    4 - exit
+    3 - create a new question in one of the categories 
+    4 - write the quiz data to the data file    
+    5 - exit
     """)
 
 
-def read_tests_data(file_name):
+def read_tests_data(file_name: str) -> List[Category]:
     """
     reads data from json and returns a list of categories object . .
     """
@@ -27,7 +32,7 @@ def read_tests_data(file_name):
     return list_of_categories
 
 
-def print_category_options(list_of_categories, username):
+def print_category_options(list_of_categories: List[Category], username: str):
     print(f" {username} please enter your choice for the category that you want to be tested in ")
 
     for index, category in enumerate(list_of_categories):
@@ -35,13 +40,13 @@ def print_category_options(list_of_categories, username):
 
     choice = input("")
 
-    if int(choice) >= 1 and int(choice) <= len(list_of_categories):
+    if 1 <= int(choice) <= len(list_of_categories):
         return list_of_categories[int(choice) - 1]
     else:
         return print_category_options(list_of_categories, username)
 
 
-def initiate_quiz(username, list_of_categories):
+def initiate_quiz(username: str, list_of_categories: List[Category]) -> None:
     """
     initiates the quiz with the category that the user choose ,and keep giving
     question until the category question end or the user want to stop .
@@ -74,7 +79,7 @@ def initiate_quiz(username, list_of_categories):
         len(category_choice.get_list_of_questions())) + " good job ." + username)
 
 
-def create_category_by_user_inputs(list_of_categories):
+def create_category_by_user_inputs(list_of_categories: List[Category]) -> List[Category]:
     """
     creates a new category with no questions in it .
     ARGS:
@@ -90,6 +95,7 @@ def create_category_by_user_inputs(list_of_categories):
 
         if category.get_category_name() == category_name:
             category_name_exist = True
+            break
 
     if category_name_exist:
         print("The entered name already exists , exiting")
@@ -102,7 +108,7 @@ def create_category_by_user_inputs(list_of_categories):
     return list_of_categories
 
 
-def options_handler(choice, username, list_of_categories):
+def options_handler(choice: str, username: str, list_of_categories: List[Category]):
     """
     handles the menu options based on the user choice
     ARGS:
@@ -122,13 +128,20 @@ def options_handler(choice, username, list_of_categories):
         add_question_to_category(list_of_categories)
 
     elif choice == '4':
+        json_data = convert_categories_to_json_dict(list_of_categories)
+        write_json_data("data.json", json_data)
+        print("file was written successfully")
+
+    elif choice == '5':
         return True
+
     else:
         print("invalid option")
-        return False
+
+    return False
 
 
-def quiz_menu(file_name, user_name):
+def quiz_menu(file_name: str, user_name: str) -> None:
     """
     the main driver function of the quiz program controls the flow of the program
     ARGS:
@@ -140,7 +153,10 @@ def quiz_menu(file_name, user_name):
     list_of_categories = read_tests_data(file_name)
     choice = '-1'
 
-    while choice != '4':
+    for category in list_of_categories:
+        print(category.to_json())
+
+    while choice != '5':
 
         display_options(user_name)
         choice = input("")
@@ -156,7 +172,17 @@ def quiz_menu(file_name, user_name):
     print(f" {user_name} Thank you for using the program , best regards")
 
 
-def create_new_question_by_user(list_of_categories, choice):
+def create_new_question_by_user(list_of_categories: List[Category], choice: int) -> List[Category]:
+    """
+    creates a new question and add it to the category specified by the user .
+    Args:
+        list_of_categories ( list of strings ): list of categories .
+        choice ( int ) : the number of the category that the newly created question will be added to .
+
+    Returns:
+        ( list of strings) : the updated list of categories after the question is added .
+    """
+
     question_text = input("Enter your question statement")
 
     options_list = []
@@ -170,7 +196,16 @@ def create_new_question_by_user(list_of_categories, choice):
     return list_of_categories
 
 
-def add_question_to_category(list_of_categories):
+def add_question_to_category(list_of_categories: List[Category]) -> List[Category]:
+    """
+    handles the ( create a new question in one of the categories ) option .
+    Args:
+        list_of_categories ( list of strings ): list of categories .
+
+    Returns:
+        ( list of strings) : the updated list of categories after the question is added .
+    """
+
     print("choose the category you want to add a questions to :")
 
     for category in list_of_categories:
@@ -178,19 +213,22 @@ def add_question_to_category(list_of_categories):
 
     choice = ""
 
-    while (True):
+    while True:
 
         choice = input("Enter your choice :")
         choice = int(choice)
 
-        if (choice >= 1 and choice <= len(list_of_categories)):
+        if 0 <= choice <= len(list_of_categories):
             break
         else:
             print("Enter one of the valid choices")
 
-    list_of_categories = create_new_question_by_user(list_of_categories, choice - 1 )
+    list_of_categories = create_new_question_by_user(list_of_categories, choice - 1)
     return list_of_categories
 
 
 if __name__ == "__main__":
-    quiz_menu("data.json", "ameer")
+    try:
+        quiz_menu("data.json", "ameer")
+    except Exception:
+        print(Exception.args)

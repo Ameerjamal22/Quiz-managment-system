@@ -1,6 +1,12 @@
-class Category:
+from typing import List
+from typing import Type
+from src.Json.object_to_json_dict import ObjectJsonify
+import json
 
-    def __init__(self, category_name, list_of_questions=[]):
+
+class Category(ObjectJsonify):
+
+    def __init__(self, category_name: str, list_of_questions: List = []):
         """
         creates a new object from the Category class that has a name and a list of questions in it .
         ARGS:
@@ -8,12 +14,12 @@ class Category:
             list_of_questions (list) : the list of the questions that deecend under this category .
         """
 
-        Category.validate_creation(category_name)
+        self.validate_creation(category_name)
 
         self.__category_name = category_name
         self.__list_of_questions = list_of_questions
 
-    def get_category_name(self):
+    def get_category_name(self) -> str:
         """
         Gets the category name as a string .
         ARGS:
@@ -23,7 +29,7 @@ class Category:
         """
         return self.__category_name
 
-    def get_list_of_questions(self):
+    def get_list_of_questions(self) -> List:
         """
         gets the question textual representation as a string .
         ARGS:
@@ -33,8 +39,7 @@ class Category:
         """
         return self.__list_of_questions
 
-    @staticmethod
-    def validate_creation(category_name):
+    def validate_creation(self, category_name:str) -> bool:
         """
         check if the category name is valid ( non-empty ) .
         ARGS:
@@ -43,4 +48,8 @@ class Category:
             ( int ) : returns zero if the category name is valid , and a negative exist code if its not .
         """
         if not category_name:
-            raise ("the category name should be non-empty")
+            raise Exception("the category name should be non-empty")
+
+
+
+
